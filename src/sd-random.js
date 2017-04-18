@@ -80,10 +80,11 @@ export function Gamma(alpha, beta) {
         }
         return -Math.log(u) * beta;
     } else {
+        let x;
         while (true) {
             let u = random(),
                 b = (Math.E + alpha) / Math.E,
-                p = b * u,
+                p = b * u;
                 x = 0;
             if (p <= 1.0) {
                 x = Math.pow(p, 1.0 / alpha);
