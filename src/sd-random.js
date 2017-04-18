@@ -261,7 +261,7 @@ export function Gamma(alpha, beta) {
         }
         return -Math.log(u) * beta;
     } else {
-    	let x = 0;
+        let x;
         while (true) {
             let u = random(),
                 b = (Math.E + alpha) / Math.E,
