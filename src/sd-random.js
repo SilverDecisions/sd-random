@@ -1,18 +1,24 @@
-export const menuList = ["random()", "uniform(0.25,0.75)", "exponential(5.0)", "normal(0.5,0.1)", "pareto(0.1,10)", "weibull(0.5,5)", "triangular(0.0,1.0,0.6)", "lognormal(-1,0.2)", "gamma(1,2)"];
+export const menuList = ["Uniform(0.0,1.0)", "Exponential(1.0)",
+                         "Normal(0.0,1.0)", "Pareto(1.0,1.0)",
+                         "Weibull(1.0,1.0)", "Triangular(0.0,1.0,0.5)",
+                         "LogNormal(0.0,1.0)", "Gamma(1.0,1.0)"];
 
-export const functionNameList = ["uniform", "exponential", "normal", "pareto", "weibull", "triangular", "lognormal", "gamma"];
+export const functionNameList = ["Uniform", "Exponential",
+                                 "Normal", "Pareto",
+                                 "Weibull", "Triangular",
+                                 "LogNormal", "Gamma"];
 
 export const random = Math.random;
 
-export function uniform(lower, upper) {
+export function Uniform(lower, upper) {
     return random() * (upper - lower) + lower;
 }
 
-export function exponential(lambda) {
+export function Exponential(lambda) {
     return -Math.log(Math.random()) / lambda;
 }
 
-export function normal(mean, std) {
+export function Normal(mean, std) {
     if (mean == null) {
         mean = 0.0;
     }
@@ -24,15 +30,15 @@ export function normal(mean, std) {
     return n * std + mean;
 }
 
-export function pareto(minimum, alpha) {
+export function Pareto(minimum, alpha) {
     return minimum / Math.pow((1 - Math.random()), 1.0 / alpha);
 }
 
-export function weibull(alpha, beta) {
+export function Weibull(alpha, beta) {
     return alpha * Math.pow(-Math.log(1.0 - random()), 1.0 / beta);
 }
 
-export function triangular(a, b, m) {
+export function Triangular(a, b, m) {
     var c = (m - a) / (b - a),
         u = random();
     if (u <= c) {
@@ -42,11 +48,11 @@ export function triangular(a, b, m) {
     }
 }
 
-export function lognormal(mean, std) {
+export function LogNormal(mean, std) {
     return Math.exp(normal(mean, std))
 }
 
-export function gamma(alpha, beta) {
+export function Gamma(alpha, beta) {
     if (alpha > 1.0) {
         let ainv = Math.sqrt(2.0 * alpha - 1.0),
             bbb = alpha - Math.log(4.0),
@@ -98,5 +104,3 @@ export function gamma(alpha, beta) {
     }
 
 }
-
-
