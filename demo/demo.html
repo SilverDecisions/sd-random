@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+</head>
+<body>
+<script src="../dist/standalone/sd-random.js"></script>
+<pre id="output"></pre>
+<script>
+    var outputEl = document.getElementById("output");
+    var output = '';
+    SilverDecisions.Random.menuList.forEach(function(menuItem){
+        output += '\n';
+        output += menuItem+" = "+eval("SilverDecisions.Random."+menuItem);
+    });
+    outputEl.innerHTML = output;
+</script>
+</body>
+</html>
