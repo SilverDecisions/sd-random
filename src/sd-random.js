@@ -49,7 +49,7 @@ export function Triangular(a, b, m) {
 }
 
 export function LogNormal(mean, std) {
-    return Math.exp(normal(mean, std))
+    return Math.exp(Normal(mean, std))
 }
 
 export function Gamma(alpha, beta) {
