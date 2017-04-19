@@ -5,7 +5,7 @@ export const menuList = ["Uniform(0.0,1.0)", "Exponential(1.0)",
                          "LogNormal(0.0,1.0)", "Gamma(1.0,1.0)",
                          "Loglogistic(1.0,0.5)","Erlang(4,0.5)",
                          "Bernoulli(0.5)","Binomial(2,0.5)",
-                         "Geometric(0.5)", "Poisson(2)"];
+                         "Geometric(0.5)", "Poisson(2.0)"];
 
 export const functionNameList = ["Uniform", "Exponential",
                                  "Normal", "Pareto",
