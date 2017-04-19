@@ -1,6 +1,7 @@
 export const menuList = ["Uniform(0.0,1.0)", "Exponential(1.0)",
                          "Normal(0.0,1.0)", "Pareto(1.0,1.0)",
                          "Weibull(1.0,1.0)", "Triangular(0.0,1.0,0.5)",
+                         "Trapezoidal(0,1,0.25,0.75)",
                          "LogNormal(0.0,1.0)", "Gamma(1.0,1.0)",
                          "Loglogistic(1.0,0.5)","Erlang(4,0.5)",
                          "Bernoulli(0.5)","Binomial(2,0.5)",
@@ -9,6 +10,7 @@ export const menuList = ["Uniform(0.0,1.0)", "Exponential(1.0)",
 export const functionNameList = ["Uniform", "Exponential",
                                  "Normal", "Pareto",
                                  "Weibull", "Triangular",
+                                 "Trapezoidal",
                                  "LogNormal", "Gamma",
                                  "Loglogistic","Erlang",
                                  "Bernoulli","Binomial",
@@ -127,7 +129,7 @@ export function Erlang(k, beta) {
  * @param a left side
  * @param b right side, b >= a
  * @param m triangle peak (mode), a <= m <= b
- * @returns
+ * @returns Triangular distributed random value
  */
 export function Triangular(a, b, m) {
     if (a == null) a = 0.0;
@@ -141,6 +143,35 @@ export function Triangular(a, b, m) {
         return a + Math.sqrt(p * (b - a) * (m - a));
     } else {
         return b - Math.sqrt((1 - p) * (b - a) * (b - m));
+    }
+}
+
+
+/**
+ * Trapezoidal distribution implementation
+ * @param a left side
+ * @param b right side, b >= a
+ * @param c left trapezoid peak (mode)
+ * @param d right trapezoid peak (mode), a <= c <= d <= b
+ * @returns Trapezoidal distributed random value
+ */
+export function Trapezoidal(a, b, c, d) {
+    if (a == null) a = 0.0;
+    if (b == null) b = 1.0;
+    if (c == null) c = 0.25;
+    if (d == null) d = 0.75;
+    if (a > b || c < a || c > d || d > b) return NaN;
+	if (a==b) return a;
+    var p1 = (c - a) / ( (b - a)+(d - c));
+    var p2 = (b - d) / ( (b - a)+(d - c));
+    var p = Math.random();
+    
+    if (p <= p1) {
+        return a + Math.sqrt(p * ((b - a)+(d - c)) * (c - a) );
+    } else if (p > 1-p2) {
+        return b - Math.sqrt((1 - p) * ((b - a)+(d - c)) * (b - d));
+    } else {
+    	return c + (d-c)*(p-p1)/(1.0 - p1 - p2);
     }
 }
 
