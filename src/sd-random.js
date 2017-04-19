@@ -1,7 +1,7 @@
 export const menuList = ["Uniform(0.0,1.0)", "Exponential(1.0)",
                          "Normal(0.0,1.0)", "Pareto(1.0,1.0)",
                          "Weibull(1.0,1.0)", "Triangular(0.0,1.0,0.5)",
-                         "Trapezoidal(0,1,0.25,0.75)",
+                         "Trapezoidal(0.0,1.0,0.25,0.75)",
                          "LogNormal(0.0,1.0)", "Gamma(1.0,1.0)",
                          "Loglogistic(1.0,0.5)","Erlang(4,0.5)",
                          "Bernoulli(0.5)","Binomial(2,0.5)",
