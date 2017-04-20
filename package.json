@@ -1,6 +1,6 @@
 {
   "name": "sd-random",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "SilverDecisions module - Tools for generating random numbers from various distributions",
   "main": "index.js",
   "scripts": {
