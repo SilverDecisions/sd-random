@@ -142,3 +142,10 @@ function map_error(err) {
 
     this.emit('end');
 }
+
+
+gulp.task('doc', function () {
+    return gulp.src('./index.js')
+        .pipe(plugins.documentation('md'))
+        .pipe(gulp.dest('doc'));
+});
