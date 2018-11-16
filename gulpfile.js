@@ -35,18 +35,6 @@ gulp.task('clean', function (cb) {
     return del(['tmp', 'dist'], cb);
 });
 
-gulp.task('build-clean', ['clean'], function () {
-    return gulp.start('build');
-});
-
-gulp.task('build', ['build-standalone', 'build-module'], function () {
-});
-
-gulp.task('build-standalone', function () {
-    var jsFileName =  projectName;
-    return buildJs('./standalone.index.js', standaloneName, jsFileName, "dist/standalone")
-});
-
 gulp.task('build-module', function () {
     var jsFileName =  projectName;
     // return buildJs('./index.js', 'sd-utils', jsFileName, "dist", sdDependencies)
@@ -56,8 +44,16 @@ gulp.task('build-module', function () {
     return finishBrowserifyBuild(b, jsFileName, "dist")
 });
 
-gulp.task('default', ['build-clean'],  function() {
+gulp.task('build-standalone', function () {
+    var jsFileName =  projectName;
+    return buildJs('./standalone.index.js', standaloneName, jsFileName, "dist/standalone")
 });
+
+gulp.task('build', gulp.parallel('build-standalone', 'build-module'));
+
+gulp.task('build-clean', gulp.series('clean', 'build'));
+
+gulp.task('default', gulp.series('build-clean'));
 
 function buildJs(src, standaloneName,  jsFileName, dest, external) {
     if(!external){
@@ -88,7 +84,7 @@ function buildJsDependencies(jsFileName, moduleNames, dest){
 
 function finishBrowserifyBuild(b, jsFileName, dest){
     var pipe = b
-        .transform("babelify", {presets: ["es2015"]})
+        .transform("babelify", {presets: ["@babel/preset-env"]})
         .bundle()
         .on('error', map_error)
         .pipe(plugins.plumber({ errorHandler: onError }))
