@@ -224,9 +224,9 @@ test('Gamma(alpha, beta), alpha < 1 (algorithm GS, as CPython random.gammavariat
     close(draw(t, [0.2, 0.99, 0.2, 0.1], () => R.Gamma(0.5, 3)), 0.16820559143767147); // first pair rejected
 });
 
-test('Gamma(alpha, beta), alpha > 1 (Cheng GB, as CPython random.gammavariate)', {
-    todo: 'known bug: ReferenceError `u is not defined` (u instead of u1)'
-}, (t) => {
+// Regression: 0.1.4 tested an undeclared `u` instead of u1 and threw
+// ReferenceError for every alpha > 1 (also in the transpiled dist bundles).
+test('Gamma(alpha, beta), alpha > 1 (Cheng GB, as CPython random.gammavariate)', (t) => {
     close(draw(t, [0.4, 0.3], () => R.Gamma(2.5, 2)), 4.08248290463863);
     t.mock.restoreAll();
     close(draw(t, [0.999, 0.01, 0.5, 0.5], () => R.Gamma(2.5, 2)), 5); // first pair rejected

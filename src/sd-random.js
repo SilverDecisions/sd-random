@@ -273,7 +273,7 @@ export function Gamma(alpha, beta) {
         while (true) {  // eslint-disable-line no-constant-condition
             let u1 = random();
 
-            if ((u1 < 1e-7) || (u > 0.9999999)) {
+            if ((u1 < 1e-7) || (u1 > 0.9999999)) {
                 continue;
             }
             let u2 = 1.0 - random(),

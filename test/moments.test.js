@@ -53,6 +53,6 @@ for (const [name, c] of Object.entries(CASES)) {
     test('moments of ' + name, (t) => checkMoments(t, name, c, s));
 }
 
-test('moments of Gamma(2.5,2)', {todo: 'known bug: Gamma with alpha > 1 throws ReferenceError'}, (t) => {
+test('moments of Gamma(2.5,2)', (t) => {
     checkMoments(t, 'Gamma(2.5,2)', [() => R.Gamma(2.5, 2), 5.0, 3.1622776601683795], 99);
 });
