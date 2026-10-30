@@ -49,7 +49,8 @@ test('Exponential(beta): -beta ln(u)', (t) => {
     invalid(t, () => R.Exponential(-1));
 });
 
-test('Exponential() defaults to beta = 1', {todo: 'known bug: `beta == 1` instead of `beta = 1`, returns NaN'}, (t) => {
+// Regression: 0.1.4 compared instead of assigning (`beta == 1`) and returned NaN.
+test('Exponential() defaults to beta = 1', (t) => {
     close(draw(t, [0.25], () => R.Exponential()), 1.3862943611198906); // scipy expon.ppf(0.75)
     t.mock.restoreAll();
     close(draw(t, [0.25], () => R.Exponential(null)), 1.3862943611198906);

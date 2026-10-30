@@ -39,7 +39,7 @@ export function Uniform(a, b) {
  * @returns Exponentially distributed random value
  */
 export function Exponential(beta) {
-	if (beta==null) beta == 1;
+	if (beta==null) beta = 1;
 	if (beta<=0) return NaN;	
     return -beta * Math.log(Math.random());
 }
