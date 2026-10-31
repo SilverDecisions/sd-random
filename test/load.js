@@ -4,6 +4,7 @@
 //   standalone  dist/standalone/sd-random.js, UMD (CommonJS branch)
 //   module      dist/sd-random.js, the bundle that defines a global `require`
 //               exposing 'sd-random' (loaded by the sd-computations tests)
+//   standalone.min, module.min   the minified files of the same bundles
 //   <file>      a CommonJS file exporting the module namespace, e.g. a Browserify
 //               bundle of the installed package (scripts/check-build.js)
 // SD_RANDOM_DIST points at another dist/ directory (default: ./dist).
@@ -43,13 +44,12 @@ function loadModuleBundle(file) {
 function load() {
     Math.random = dispatcher;
     try {
-        if (target === 'standalone') {
-            return require(path.join(dist, 'standalone', 'sd-random.js'));
+        const bundle = /^(standalone|module)(\.min)?$/.exec(target);
+        if (!bundle) {
+            return require(path.resolve(target));
         }
-        if (target === 'module') {
-            return loadModuleBundle(path.join(dist, 'sd-random.js'));
-        }
-        return require(path.resolve(target));
+        const file = (bundle[1] === 'standalone' ? 'standalone/sd-random' : 'sd-random') + (bundle[2] || '') + '.js';
+        return bundle[1] === 'standalone' ? require(path.join(dist, file)) : loadModuleBundle(path.join(dist, file));
     } finally {
         Math.random = originalRandom;
     }

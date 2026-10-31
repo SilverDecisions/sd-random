@@ -35,21 +35,23 @@ npm run test:build   # isolated build check, see scripts/check-build.js
 npm run docs         # regenerate doc/API.md (documentation.js)
 ```
 
-`npm test` tests `dist/standalone/sd-random.js` by default;
-`SD_RANDOM_TARGET=module npm test` tests `dist/sd-random.js`, and
-`SD_RANDOM_TARGET=<file>` any CommonJS file exporting the module. Tests mock
+`npm test` tests `dist/standalone/sd-random.js` by default. `SD_RANDOM_TARGET`
+selects another bundle: `module` (`dist/sd-random.js`), `standalone.min` and
+`module.min` (the minified files), or a CommonJS file exporting the module
+(used for a browserify bundle of the packed package). Tests mock
 `Math.random` per test (`t.mock.method`, restored after each test) and
 compare with independent reference values (scipy, mpmath, CPython's
 `random.gammavariate`); the sample moment checks use a seeded generator, so
 they give the same result on every run.
 
 `npm run test:build` (CI on Linux) copies the working tree, runs `npm ci` and
-the build, checks the six artifacts (ES5, source maps) and that nothing
-outside `dist/` changed, runs the tests against both bundles, packs the
-package, installs the tarball into an empty consumer that bundles it with
-browserify + babelify like SilverDecisions and tests that bundle, and checks
-that a syntax error fails the build with a non-zero exit code. Windows CI runs
-a smoke build, the tests and the check without the consumer install.
+the build, checks the six artifacts (ES5, parsed source maps) and that nothing
+outside `dist/` changed, runs the tests against the four bundles (plain and
+minified), packs the package, installs the tarball into an empty consumer that
+bundles it with browserify + babelify like SilverDecisions and tests that
+bundle, and checks that a syntax error fails the build with a non-zero exit
+code. Windows CI runs a smoke build, the tests on the four bundles and the
+check without the consumer install.
 
 `dist/` is committed and rebuilt by the release (`release-it` runs
 `npm run build` after the version bump). Until then it is the build of the
