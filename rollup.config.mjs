@@ -27,7 +27,9 @@ function outputs(file, output) {
     output = Object.assign({exports: 'named', esModule: true}, output);
     return [
         Object.assign({file: file + '.js', sourcemap: 'inline'}, output),
-        Object.assign({file: file + '.min.js', sourcemap: true, plugins: [terser()]}, output)
+        // toplevel: false, as for the other formats: @rollup/plugin-terser turns it on for cjs,
+        // which moves the variables of the require wrapper into the global scope
+        Object.assign({file: file + '.min.js', sourcemap: true, plugins: [terser({toplevel: false})]}, output)
     ];
 }
 
